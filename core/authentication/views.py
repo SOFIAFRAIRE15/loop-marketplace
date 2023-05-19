@@ -7,19 +7,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-
-
-from .serializers import LoginSerializer, UserSerializer
+from .serializers import LoginSerializer, UserSerializer, SignupSerializer
 
 # Create your views here.
 
 class LoginView(APIView):
     
-    serializer_class = LoginSerializer
-
-
     def post(self, request):
-        serializer = self.serializer_class(data = request.data)
+        serializer = LoginSerializer(data = request.data)
         serializer.is_valid(raise_exception = True)
 
     
@@ -41,3 +36,14 @@ class LoginView(APIView):
                        'message': "The credentiales provided are not valid. Please review ypur information and try again." 
                   },
                   status = status.HTTP_401_UNAUTHORIZED)
+        
+
+class SignUpView(APIView):
+    serializer_class = UserSerializer
+
+    def post(self, request):
+        print(request.data)
+        serializer = self.serializer_class(data = request.data)
+        serializer.is_valid(raise_exception = True)
+        serializer.save()
+        return Response (serializer.data, status = status.HTTP_200_OK) 

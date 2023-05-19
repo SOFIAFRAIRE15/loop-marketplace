@@ -6,7 +6,12 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class CustomUser(AbstractUser):
-    username = models.CharField(max_length = 50, unique = True, null = False)
+
+    class Meta: 
+        ordering = ['pk']
+
+
+    username = models.CharField(max_length = 50, null = True, blank = True)
     email = models.EmailField(max_length = 130, unique = True, null = False)
     phone_number = models.CharField(max_length = 13, null = True, blank = True)
 
