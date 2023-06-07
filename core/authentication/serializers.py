@@ -21,7 +21,7 @@ class SignupSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required = True)
     password = serializers.CharField(required = True, write_only = True)
     phone_number = serializers.CharField(required = True)
-    last_login = serializers.DateTimeField(required = False, write_only = True)
+    #last_login = serializers.DateTimeField(required = False, write_only = True)
 
     class Meta:
         model = CustomUser
